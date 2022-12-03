@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Request Time Off Volunteering</title>{% endblock title %}
+
+{% load static %}
+{% block add_css %}<link rel="stylesheet" type="text/css" href="{% static 'css/time_off_request.css' %}" />{% endblock %}
+
+{% block content %}
+
+<div class="base_div" id="request-time-off-form" >
+    <h2><u>Request Time Off Form</u></h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ request_time_off_form.as_p }}
+        <button type="submit">Submit Request</button>
+    </form>
+</div>
+
+<div class="center-wrapper">
+    <div class="base_div" id="show_time_off_requests">
+        <h2><u>Your Family's Time Off Requests</u></h2>
+        <table>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Status</th>
+            </tr>
+            {% for time_off_request in time_off_requests %}
+            <tr>
+                <td>{{ time_off_request.start_date }}</td>
+                <td>{{ time_off_request.end_date }}</td>
+                <td>{{ time_off_request.status }}</td>
+                <td id="delete-button">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button name="delete-time-off-request" value="{{time_off_request.id}}">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

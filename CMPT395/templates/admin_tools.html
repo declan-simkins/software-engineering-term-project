@@ -1,0 +1,70 @@
+{% extends "base-user-task.html" %}
+
+{% block title %}<title>Caraway Admin Tools</title>{% endblock title %}
+
+{% load static %}
+{% block add_css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/admin_tools.css' %}"/>
+{% endblock add_css %}
+
+
+{% block task-content %}
+  {% if request.user.is_superuser %}
+    {% if error %}
+      <p class="error-message">{{ error }}</p>
+    {% endif %}
+    <h3>Add Time Slot</h3>
+    <form method=POST>
+      {% csrf_token %}
+      {{ view.tsForm.as_p }}
+      <button type="submit" name="add-ts">Add Time Slot</button>
+    </form>
+    
+    <h3>Add Classroom</h3>
+    <form method=POST>
+      {% csrf_token %}
+      {{ view.classForm.as_p }}
+      <button type="submit" name="add-class">Add Classroom</button>
+    </form>
+
+    <div class="model-list">
+        <h4>Classrooms:</h4>
+        <ul>
+        {% for cr in view.classrooms %}
+          <li>
+            <form method=POST>
+              {% csrf_token %}
+              <button name="del-class" class="fa fa-trash" value="{{ cr.classroomID }}"></button>
+            </form>
+            <p>{{ cr.title }} a.k.a. "{{ cr.color }}"</p>
+          </li>
+        {% empty %}
+          <li>
+            <p>There are currently no classrooms in the database.</p>
+          </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="model-list">
+        <h4>Time Slots:</h4>
+        <ul>
+        {% for ts in view.time_slots %}
+          <li>
+            <form method=POST>
+              {% csrf_token %}
+              <button name="del-ts" class="fa fa-trash" value="{{ ts.timeslotID }}"></button>
+            </form>
+            <strong>{{ ts.title }}</strong>
+            <p>{{ ts.start }} - {{ ts.end }}</p>
+          </li>
+        {% empty %}
+          <li>
+            <p>There are currently no time slots in the database.</p>
+          </li>
+        {% endfor %}
+        </ul>
+    </div>
+  {% endif %}
+{% endblock task-content %}

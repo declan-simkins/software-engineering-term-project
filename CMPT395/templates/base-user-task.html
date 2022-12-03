@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% block add_css %}
+  {{ block.super }} <!-- Append to block rather than overwrite -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base-user-task.css' %}"/>
+{% endblock add_css %}
+
+{% block content %}
+  <div class="center-box">
+    {% block task-content %}
+    {% endblock task-content %}
+  </div>
+{% endblock content %}

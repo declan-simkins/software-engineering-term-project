@@ -1,0 +1,15 @@
+div{
+    background-color: #BBBBBB;
+    padding: 0.2% 0.2% 0.2% 0.2%;
+    margin-left:30%;
+    margin-right:30%;
+}
+
+#sign_up_title {
+    color: blue;
+    text-align: center;
+}
+
+#signUpForm{
+    align-content: center;
+}

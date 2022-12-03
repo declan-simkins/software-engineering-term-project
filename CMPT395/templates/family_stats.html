@@ -1,0 +1,29 @@
+{% extends 'base-user-task.html' %}
+
+{% block title %}<title>Family Stats</title>{% endblock %}
+
+{% load static %}
+{% block add_css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/family_stats.css' %}"/>
+{% endblock add_css %}
+
+{% block task-content %}
+  <h2>Family Stats for {{ view.current_signups.0.volunteer.family.family_name }} Family</h2>
+  <p>Weekly Hours: {{ view.week_total }}</p>
+  <p>Required Weekly Hours: {{ view.required_hours }}</p>
+  <p>Month Hours: {{ view.month_total }}</p>
+  
+  <section id="signups">
+    <h3>Upcoming Signups</h3>
+    <ul class="signups-list">
+      {% for signup in view.current_signups %}
+        <li>
+          <h4>{{ signup.date }}</h4>
+          <p>{{ signup.start_time }} - {{ signup.end_time }}</p>
+          <p>{{ signup.volunteer }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock task-content %}

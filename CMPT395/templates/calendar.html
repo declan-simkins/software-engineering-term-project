@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+  <title>Caraway Calendar</title>
+{% endblock title %}
+
+{% block add_css %}
+  {% load static %}
+  <script src="{% static 'js/calendar.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/calendar.css' %}" />
+{% endblock add_css %}
+
+{% block body_tag %}<body onload="startup('{{ view.CLASSROOMS.0.title }}', '{{ view.CLASSROOMS.0.color }}')">{% endblock body_tag %}
+
+{% load calendar_tags %}
+{% block content %}
+  <!-- Classroom list -->
+  <section id="js-class-list" class="topbar">
+    {% for classroom in view.CLASSROOMS %}
+      <i onclick="switch_calendar('{{ classroom.title }}', '{{ classroom.color }}')">
+        <section id="class-name-{{ classroom.title }}" class="class-selector" style="background-color: {% to_lower classroom.color %};">
+          <!--
+            Resulting css id will be class-name-nameofclassroom;
+            i.e. class-name-Red
+          -->
+          <p>{{ classroom.title }}</p>
+        </section>
+      </i>
+    {% endfor %}  
+  </section>
+
+  <div id="sign-up-overlay">
+    <div id="sign-up-popup">
+      <div id="sign-up-popup-close">
+        <i class="fa fa-times-circle" onclick="toggle_popup('sign-up-overlay')"></i>
+        <div class="clear"></div>
+      </div>
+      
+      <section id="signup_headers">
+        <h3 id="js-signup-day" class="signup-title">Default</h3>
+        <h5 id="js-signup-date" class="signup-title">Default</h5>
+      </section>
+      
+      <form id="signup_form" method="post">
+        {% csrf_token %}
+        <fieldset>
+          <legend>Sign-up Information:</legend>
+          {{ view.signup_form.as_p }}
+	        <input id="id_classroom" type="hidden" name="classroom"/>
+          <input id="js-signup-hidden-date" type="hidden" name="day" value="Default"/>
+          <button type="submit">Submit</button>
+        </fieldset>
+      </form>
+    </div> <!-- End sign-up-form -->
+  </div> <!-- End sign-up-overlay -->
+  
+  <section id="js-week-select" class="topbar">
+    <form id="prev-week-form" method="post">
+      {% csrf_token %}
+      <button class="fa fa-angle-left" type="submit" name="prev-week" value="{% format_date view.date_and_name.0.1 %}"></button>
+    </form>
+    <h4>{{ view.date_and_name.0.1 }} - {{ view.date_and_name.4.1 }}</h4>
+    <form id="prev-week-form" method="post">
+      {% csrf_token %}
+      <button class="fa fa-angle-right" type="submit" name="next-week" value="{% format_date view.date_and_name.4.1 %}"></button>
+    </form>
+  </section>
+  
+  {% if success == True %}
+    <section id="signup-success" class="topbar">
+      <h5>Successfuly signed up</h5>
+    </section>
+  {% endif %}
+  {% if success == False %}
+    <section id="signup-failure" class="topbar">
+      <h5>Failed to sign up</h5>
+    </section>
+  {% endif %}
+  {% if double_booked == True %}
+    <section id="signup-failure" class="topbar">
+      <h5>Overlapping sign ups</h5>
+    </section>
+  {% endif %}
+
+  
+  <!-- Calendars -->
+  {% for class in view.CLASSROOMS %}
+    <section id="js-{{ class }}-calendar" class="calendar">
+    {% for day in view.date_and_name %}
+      <section class="day">
+        <section class="day-header">
+          <h3>{{ day.0 }}</h3>
+          <h3>{{ day.1 }}</h3>
+        </section>
+        {% for slot in view.TIME_SLOTS %}
+          <section class="time-slot">
+           <h3>{{ slot.title }} <span class="fa fa-plus-circle" onclick="toggle_signup('{{ day.0 }}', '{{ day.1 }}', '{% format_time slot.start %}', '{% format_time slot.end %}', '{% format_date day.1 %}')"></span></h3>
+           <h4>{% format_time slot.start %} - {% format_time slot.end %}</h4>
+             {% for signup in view.signup_objects %}
+               {% if signup.classroom == class.title %}
+                 {% if signup.date == day.1 %}
+                   {% if signup.end_time > slot.start and signup.end_time <= slot.end %}
+                     <section class="event">
+                       {% user_match signup.volunteer view as match %}
+                       {% if match %}
+                         <form method="POST">
+                           {% csrf_token %}
+                           <button name="delete-signup" class="fa fa-trash" value="{{ signup.signupID }}"></button>
+                         </form>
+                        {% endif %}
+                       <section class="signup-info">
+                         <strong>{{ signup.volunteer }}</strong>
+                         {% if signup.start_time != slot.start or signup.end_time != slot.end %}
+                           <p>{% format_time signup.start_time %} - {% format_time signup.end_time %}</p>
+                         {% endif %}
+                       </section>
+                     </section><!-- End event -->
+                   {% endif %}
+                 {% endif %}
+               {% endif %}
+             {% endfor %}
+          </section> <!-- End time-slot -->
+        {% endfor %}
+      </section> <!-- End day -->
+    {% endfor %}
+    </section> <!-- End calendar -->
+    {% empty %}
+      <h3>List Empty</h3>
+  {% endfor %}
+{% endblock content %}

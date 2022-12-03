@@ -1,0 +1,13 @@
+{% extends 'base-user-task.html' %}
+
+{% block title %}<title>Signup for Field Trip</title>{% endblock %}
+
+{% block task-content %}
+<h2>Signup for Field Trip</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Signup for Field Trip</button>
+</form>
+
+{% endblock task-content %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Signup Test</title>{% endblock title %}
+
+{% load calendar_tags %}
+
+{% block content %}
+  <section>
+    {% for signup in view.signup_objects %}
+      <p> {{ signup.volunteer }} </p>
+      <p> {{ signup.classroom }} | {{ signup.date }} </p>
+      <p> {% format_time signup.start_time %} - {% format_time signup.end_time %} </p>
+      <p> -------------------------------- </p>
+    {% endfor %}
+  </section>
+{% endblock content %}

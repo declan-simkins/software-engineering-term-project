@@ -1,0 +1,26 @@
+{% extends 'base-user-task.html' %}
+
+{% block title %}<title>Create Account</title>{% endblock %}
+
+{% load static %}
+{% block add_css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
+{% endblock add_css %}
+
+{% block task-content %}
+  {% if request.user.is_superuser %}
+    <section class="left-align">
+      <section class="center-align"><h2>Create New Account</h2></section>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <section class="center-align">
+          <button type="submit">Sign Up</button>
+        </section>
+      </form>
+    </section>
+  {% else %}
+    <h1>You are not authorised to access this page.</h1>
+  {% endif %}
+{% endblock %}

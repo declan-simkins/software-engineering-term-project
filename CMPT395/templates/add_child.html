@@ -1,0 +1,16 @@
+{% extends 'base-user-task.html' %}
+
+{% block title %}<title>Add Child</title>{% endblock %}
+
+{% block task-content %}
+  {% if request.user.is_superuser %}
+    <h2>Add Child</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Child</button>
+    </form>
+  {% else %}
+    <h1>You are not authorized to access this page.</h1>
+  {% endif %}
+{% endblock task-content %}

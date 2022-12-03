@@ -1,0 +1,60 @@
+{% extends 'base-user-task.html' %}
+
+{% block title %}<title>Field Trips</title>{% endblock %}
+{% load static %}
+
+{% block add_css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/view_field_trip.css' %}"/>
+{% endblock add_css %}
+
+{% block task-content %}
+<h2><u>Field Trips</u></h2>
+<table>
+    <tr>
+        <th>Date Of Trip</th>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Class/es</th>
+        <th>Volunteers</th>
+    </tr>
+    {% for field_trip in field_trips %}
+        <tr>
+            <td>{{field_trip.date}}</td>
+            <td>{{ field_trip.title }}</td>
+            <td>{{field_trip.location}}</td>
+            <td>{{ field_trip.classes}}</td>
+            <td>
+                <ul>
+                    {% for signup in field_trip_signups %}
+                        {% if signup.trip == field_trip %}
+                            <li>{{ signup.volunteer.first_name }} {{ signup.volunteer.last_name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </td>
+            <td class="sign_up_button_div">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="field_trip_button" name="add_to_field_trip" value="{{ field_trip.id }}">Add Me</button>
+                </form>
+            </td>
+            <td class="delete_sign_up_button_div">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="field_trip_button" name="delete_field_trip_signup" value="{{ field_trip.id }}">Remove Me</button>
+                </form>
+            </td>
+            {% if request.user.is_superuser %}
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button class="field_trip_button" name="delete_field_trip" value="{{ field_trip.id }}">Delete Entire Field Trip</button>
+                    </form>
+                </td>
+            {% endif %}
+
+        </tr>
+    {% endfor %}
+</table>
+{% endblock task-content %}

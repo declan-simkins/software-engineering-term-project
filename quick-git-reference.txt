@@ -1,0 +1,34 @@
+For a quick guide: rogerdudler.github.io/git-guide/
+
+To setup git repository in current directory: git init
+To get a remote repository (after git init): git clone user@host:/project/path
+  e.g: git clone git@gitlab.com:DecoSimkins/CMPT-395-Term-Project.git
+
+Update local repository (not always clean): git pull
+Update local cleanly (use before pushing): git fetch origin
+                                           git rebase -p origin/<branch-name>
+For more info: https://www.derekgourlay.com/blog/git-when-to-merge-vs-when-to-rebase/
+
+Add changed file to index (staging area): git add <filename>
+  ^ Can be done to index deleted files as well
+
+Add all changed files to index: git add *
+
+Commit changes in index: git commit -m "Commit Message"
+
+Send (push) commits to server: git push <server> <branch-name>
+
+View local branches: git branch
+View all (local & remote) branches: git branch -a
+Create branch (locally): git checkout -b <branch-name>
+Switch to existing branch: git checkout <branch-name>
+Push branch to remote: git push <server> <branch-name>
+Delete branch (locally): git branch -d <branch-name>
+Delete branch (remotely): git push --delete <server> <branch-name>
+
+Merge branch into current working branch (Should instead create merge request
+  on gitlab website): git merge <branch-name>
+
+In the case of conflicts, after they are resolved, mark them as merged by
+  git adding them: git add <resolved-filename>
+  (Again, merges should be done through gitlab)

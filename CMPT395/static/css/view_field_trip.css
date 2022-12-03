@@ -1,0 +1,27 @@
+table{
+    margin-top:1em;
+}
+
+td{
+    padding-top:1em;
+    padding-bottom:2em; 
+    padding-left:2em;
+    padding-right:2em;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.sign_up_button_div{
+    padding-left:0em;
+    padding-right:0.5em;
+}
+.delete_sign_up_button_div{
+    padding-right:2em;
+    padding-left:0em;
+}
+
+.field_trip_button{
+    padding:0.5em;
+}

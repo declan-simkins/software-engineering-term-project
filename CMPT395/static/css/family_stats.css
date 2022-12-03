@@ -1,0 +1,8 @@
+.signups-list {
+    list-style: none;
+}
+
+.signups-list li {
+    border-top: solid black 1px;
+    margin: 10px;
+}

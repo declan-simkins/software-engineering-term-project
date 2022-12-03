@@ -1,0 +1,35 @@
+h3 {
+    text-decoration: underline;
+}
+
+form {
+    padding: 10px;
+    margin: 5px;
+}
+
+.model-list {
+    border-top: solid black 1px;
+    margin: 5px;
+}
+
+.model-list ul {
+    list-style: none;
+}
+
+.model-list li {
+    padding: 5px;
+}
+
+.model-list h4 {
+    text-decoration: underline;
+}
+
+.model-list button:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}

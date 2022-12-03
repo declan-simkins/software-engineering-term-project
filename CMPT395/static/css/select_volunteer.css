@@ -1,0 +1,41 @@
+body {
+  background-color: gray;
+}
+
+.vol-select {
+  width: 100px;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  background-color: #737373;
+}
+
+.vol-select:hover {
+  background-color: #afafaf;
+}
+
+.vol-select:active {
+  background-color: #555;
+}
+
+.centering_div{
+  display: inline-block;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 4px 4px 6px #222;
+  background-color: white;
+  border: solid black 1px;
+  border-radius: 4px;
+}
+
+.basic_div{
+  background-color: white;
+}
+
+.main-background{
+  text-align: center;
+}
+body{
+  background-color:gray;
+}

@@ -1,0 +1,36 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base-user-task.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/select_volunteer.css' %}" />
+
+<body>
+  <div class="main-background">
+    <div class="centering_div" >
+      <h3>Volunteer Selection:</h3>
+      <em>Click to choose</em>
+      <form method="post">
+        {% csrf_token %}
+        {% for key, value in name_list.items %}
+          <div class="vol-select-wrap">
+            <button class="vol-select" name="volunteer" type="submit" value={{value.1}}>{{value.0}}</button>
+          </div>
+        {% endfor %}
+      </form>
+      {% if request.user.is_superuser %}
+        <div class="centering_div">
+            <div class="basic_div">
+                <p>*** Note: If you are an Administrator and you do not see any volunteers to choose from, Please visit the admin page and create at least one for yourself. ***
+                <p><a href="{% url 'admin:index' %}">Admin Page</a></p></p>
+            </div>
+        </div>
+      {% endif %}
+
+      {% if not request.user.is_superuser %}
+        <div class="centering_div">
+          <div class="basic_div"><p>*** Note: If you do not see any volunteers to choose from, please contact an administrator and ask them to add one for you. ***</p></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+

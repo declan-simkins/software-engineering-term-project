@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  {% block title %}<title>Caraway Facilitation Scheduler</title>{% endblock title %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+  {% block add_css %}{% endblock add_css %}
+</head>
+
+{% load calendar_tags %}
+{% block body_tag %}<body>{% endblock body_tag %}
+  <div id="pagewrap">
+    <section id="main-header" class="header">
+      <div class="left-align header-item">
+        <img id="school-logo-thumb" src="http://carawayschool.ca/files/2017/02/Caraway-logo-noSeeds-960x777.png" alt="Caraway School Logo">
+      </div> <!-- End header item 1 -->
+
+      <div class="center-align header-item">
+        <h4>Caraway Facilitation Scheduler</h4>
+      </div> <!-- End header item 2 -->
+
+      <div class="right-align header-item">
+        {% block weeklyHours %}<p>This Week: {% weekly_hours view %}</p>{% endblock weeklyHours %}
+        {% block monthlyHours %}<p>This Month: {% monthly_hours view %}</p>{% endblock monthlyHours %}
+      </div> <!-- End header item 3 -->
+    </section> <!-- End main-header -->
+
+    <section id="main-body" class="body">
+      <section id="main-navbar" class="sidebar">
+        <a class="fa fa-home" href="{% url 'home' %}"></a>
+        <a class="fa fa-calendar" href="{% url 'weeklyCalendar' %}"></a>
+        <a class="fa fa-bus" href=" {% url 'view_field_trip' %}"></a>
+        <a class="fa fa-plane" href="{% url 'request_time_off' %}"></a>
+      </section> <!-- End main-navbar -->
+
+      <section id="content-body" class="body">
+       {% block content %}
+       {% endblock content %}
+       <div class="clear"></div>
+      </section> <!-- End content-body -->
+      <div class="clear"></div>
+    </section> <!-- End main-body -->
+    <div class="clear"></div>
+  </div> <!-- End pagewrap -->
+<div class="clear"></div>
+</body>
+
+</html>

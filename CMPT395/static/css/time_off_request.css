@@ -1,0 +1,52 @@
+.base_div{
+  display: inline-block;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 4px 4px 6px #222;
+  background-color: white;
+  border: solid black 1px;
+  border-radius: 4px;
+}
+
+.center-wrapper{
+    text-align: center;
+}
+
+#request-time-off-form{
+    margin-right:40%;
+    margin-left:40%;
+}
+
+#show_time_off_requests{
+    display:inline-block;
+}
+
+th, tr{
+    padding-left:3em;
+    padding-right:3em;
+}
+
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td{
+    padding-left:1em;
+    padding-right:1em;
+}
+
+#show_time_off_requests h2{
+    margin-bottom:3%;
+}
+
+#delete-button{
+    border:none;
+    border-collapse: initial;
+}
+
+table{
+    border:none;
+}
+

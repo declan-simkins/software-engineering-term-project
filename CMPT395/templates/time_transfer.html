@@ -1,0 +1,34 @@
+{% extends "base-user-task.html" %}
+
+{% block title %}<title>Transfer Hours</title>{% endblock title %}
+
+{% load static %}
+{% block add_css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/time_transfer.css' %}"/>
+{% endblock %}
+
+{% block task-content %}
+  <form method=POST>
+      {% csrf_token %}
+      {{ view.transfer_form.as_p }}
+      <button type="submit" name="add-transfer">Transfer</button>
+  </form>
+
+  <section class="transfers-box">
+      <h3>Received Transfers:</h3>
+      {% for transfer in view.received_transfers %}
+        <p>{{ transfer }}</p>
+      {% empty %}
+        <p>No Received Transfers.</p>
+      {% endfor %}
+  </section>
+  <section class="transfers-box">
+      <h3>Sent Transfers:</h3>
+      {% for transfer in view.sent_transfers %}
+        <p>{{ transfer }}</p>
+      {% empty %}
+        <p>No Sent Transfers.</p>
+      {% endfor %}
+  </section>
+{% endblock task-content %}

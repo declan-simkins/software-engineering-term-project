@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: gray;
+}
+
+#pagewrap {
+    min-height: 100%;
+    overflow: hidden;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: solid black 1px;
+    height: 50px;
+    background-color: rgb(168, 167, 167);
+}
+
+#main-header {
+    display: grid;
+    background-color: white;
+    grid-template-columns: 30% auto 30%;
+    grid-template-rows: 50px;
+    z-index: 50;
+}
+
+#main-body {
+  position: relative;
+  padding: 50px 0 0 50px;
+}
+
+#content-body {
+  position: relative;
+  text-align: center;
+}
+
+.header-item {
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.header-item h4 {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#school-logo-thumb {
+    display: inline-block;
+    height: 50px;
+    width: 65px;
+    padding: 5px;
+}
+
+#main-navbar {
+    background-color: #333;
+    color: white;
+}
+
+#main-navbar a {
+    text-align: center;
+    font-size: 40px;
+    padding: 5px;
+    text-decoration: none;
+    display: block;
+}
+
+#main-navbar a:link {
+    color: white;
+}
+
+#main-navbar a:visited {
+    color: white;
+}
+
+#main-navbar a:hover {
+    color: rgb(0, 0, 0);
+    background-color: #ddd;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.sidebar {
+    position: fixed;
+    top: 50px;
+    left: 0px;
+    width: 50px;
+    border-right: solid black 1px;
+    height: 100%;
+    background-color: lightgray;
+    z-index: 45;
+}
+
+.body {
+    background-color: gray;
+}
+
+.clear {
+  clear: both;
+}

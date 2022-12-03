@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.is_superuser %}
+<form method="GET" action="">
+    <input type="text" name='query' placeholder="Search for user" value="{{ request.GET.query }}"/>
+    <input type="submit" value="Search"/>
+    {% for user in object_list %}
+        <h1>>{{user}}</h1>
+	{% endfor %}
+</form>
+{% else %}
+{% endif %}
+{% endblock %}
